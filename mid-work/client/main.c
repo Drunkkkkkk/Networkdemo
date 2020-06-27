@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
                 break;
             }
             recv_line[n] = 0;
+            printf("get  %d  byte\n",n);
             fputs(recv_line,stdout);
             fputs("\n",stdout);
         }
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
             if (fgets(send_line,MAXLINE,stdin) != NULL) {
                 int i = strlen(send_line);
                 if (send_line[i - 1] == '\n') {
-                    send_line[i - 1] = 0; // 空 = NULL？
+                    send_line[i - 1] = '\0'; // 空 = NULL？
                 }
                 if (strncmp(send_line,"quit",strlen(send_line)) == 0) {
                     //shutdown??
@@ -61,6 +62,9 @@ int main(int argc, char *argv[])
                     }
                 }
                 size_t rt = write(socket_fd,send_line,strlen(send_line));
+                printf("send:\n");
+                fputs(send_line,stdout);
+                fputs("\n",stdout);
                 if(rt < 0) {
                     error(1,errno,"write failed");
                 }

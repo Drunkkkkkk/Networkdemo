@@ -6,7 +6,7 @@
 #include <error.h>
 #include <signal.h>
 
-int tcp_server(int port) {
+int tcp_server_listen(int port) {
 
     int listen_fd = socket(AF_INET,SOCK_STREAM,0);
 
