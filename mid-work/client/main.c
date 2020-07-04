@@ -52,17 +52,18 @@ int main(int argc, char *argv[])
         if (FD_ISSET(STDIN_FILENO,&readmask)){
             if (fgets(send_line,MAXLINE,stdin) != NULL) {
                 int i = strlen(send_line);
-                if (send_line[i - 1] == '\n') {
-                    send_line[i - 1] = '\0'; // 空 = NULL？
-                }
+//                if (send_line[i - 1] == '\n') {
+//                    send_line[i - 1] = '\0'; // 空 = NULL？
+//                }
                 if (strncmp(send_line,"quit",strlen(send_line)) == 0) {
                     //shutdown??
+                    printf("shutdown\n");
                     if(shutdown(socket_fd,1)) {
                         error(1,errno,"shutdown failed");
                     }
                 }
                 size_t rt = write(socket_fd,send_line,strlen(send_line));
-                printf("send:\n");
+                printf("send: %d bytes\n",rt);
                 fputs(send_line,stdout);
                 fputs("\n",stdout);
                 if(rt < 0) {
